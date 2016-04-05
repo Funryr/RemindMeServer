@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @RestController
-@RequestMapping("remind")
+@RequestMapping("/reminder")
 public class ReminderController {
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -22,7 +22,7 @@ public class ReminderController {
         Remind remind = new Remind();
         remind.setId(1);
         remind.setRemindDate(new Date());
-        remind.setTitle("My first remind !!!");
+        remind.setTitle("My first remind !!! Once more !!! via 8082");
 
         return remind;
     }

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.proba.remindme.server.")
+@ComponentScan("com.proba.remindme.server")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
