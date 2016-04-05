@@ -24,13 +24,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 @ComponentScan("com.proba.remindme.server")
+
 public class DatabaseConfig {
 
     @Resource
     private Environment env;
-
-    public DatabaseConfig() {
-    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -41,17 +39,6 @@ public class DatabaseConfig {
         em.setJpaProperties(getHibernateProperties());
 
         return em;
-    }
-
-    private Properties getHibernateProperties() {
-        try {
-            Properties properties = new Properties();
-            InputStream is = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
-            properties.load(is);
-            return properties;
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Can't find 'hibernate.properties' in classpath!", e);
-        }
     }
 
     @Bean
@@ -74,10 +61,21 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public PlatformTransactionManager platformTransactionManager() {
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager manager = new JpaTransactionManager();
         manager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return manager;
+    }
+
+    private Properties getHibernateProperties() {
+        try {
+            Properties properties = new Properties();
+            InputStream is = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
+            properties.load(is);
+            return properties;
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Can't find 'hibernate.properties' in classpath!", e);
+        }
     }
 }
